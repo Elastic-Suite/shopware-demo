@@ -1,0 +1,6 @@
+
+networks:
+  default:
+    name: 'connectors-proxy'
+    external: true
+
