@@ -1,0 +1,33 @@
+name: Deploy demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-demo:
+    name: Deploy demo
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Deploy in EC2
+        env:
+          BRANCH: ${{ format('origin/{0}', github.ref_name) }}
+          PRIVATE_KEY: ${{ secrets.AWS_DEPLOY_KEY }}
+          HOSTNAME : ${{ secrets.AWS_HOSTNAME }}
+          USER_NAME : ${{ secrets.AWS_USER }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} "
+            cd /home/ubuntu/ &&
+            [ -d shopware ] || git clone https://github.com/Elastic-Suite/shopware-demo.git shopware &&
+            cd /home/ubuntu/shopware &&
+            [ -d plugins/GallyPlugin ] || git clone https://github.com/Elastic-Suite/gally-shopware-connector.git plugins/GallyPlugin &&
+            docker system prune -af &&
+            ([[ $(docker volume ls -q | awk '!/_/' | wc -l) -eq 0 ]] || docker volume rm $(docker volume ls -q | awk '!/_/' | tr '\n' ' ')) &&
+            docker compose down &&
+            git fetch --all && git reset --hard && git checkout ${{ env.BRANCH }} &&
+            cd /home/ubuntu/shopware/plugins/GallyPlugin &&
+            git fetch --all && git reset --hard && git checkout ${{ env.BRANCH }} &&
+            cd /home/ubuntu/shopware &&
+            docker compose -f compose.yml up -d --build      
+          "
