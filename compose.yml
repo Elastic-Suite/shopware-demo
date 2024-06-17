@@ -6,7 +6,9 @@ services:
             - "443:443"
         volumes:
             - ./plugins:/var/www/html/custom/plugins:rw,cached
+            - src_data:/var/www/html/
             - db_data:/var/lib/mysql
 
 volumes:
     db_data:
+    src_data:
