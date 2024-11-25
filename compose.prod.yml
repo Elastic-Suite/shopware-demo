@@ -1,0 +1,4 @@
+services:
+    shopware:
+        ports: !override
+            - "443:443"
