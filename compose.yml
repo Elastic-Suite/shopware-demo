@@ -9,21 +9,15 @@ services:
             - ./plugins:/var/www/html/custom/plugins:rw,cached
             - src_data:/var/www/html/
             - db_data:/var/lib/mysql
-        extra_hosts:
-            - gally.local:host-gateway
         labels:
             - traefik.enable=true
             # Serve oro over http
-            - traefik.http.routers.shopware-http.rule=Host(`shopware.docker.localhost`)
+            - traefik.http.routers.shopware-http.rule=Host(`${SERVER_NAME}`)
             - traefik.http.routers.shopware-http.entrypoints=http
             # Serve oro over https
-            - traefik.http.routers.shopware-https.rule=Host(`shopware.docker.localhost`)
+            - traefik.http.routers.shopware-https.rule=Host(`${SERVER_NAME}`)
             - traefik.http.routers.shopware-https.entrypoints=https
             - traefik.http.routers.shopware-https.tls=true
-        environment:
-            - XDEBUG_ENABLED=0
-            - XDEBUG_REMOTE_HOST=172.17.0.1
-            - XDEBUG_SERVER_NAME=shopware.docker.localhost
 
 volumes:
     db_data:
