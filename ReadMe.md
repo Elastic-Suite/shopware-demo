@@ -10,10 +10,10 @@
   ```
 - Set env vars:
 
-  | Var                 | Description                           | Example value                      |
-  |---------------------|---------------------------------------|------------------------------------|
-  | `SERVER_NAME`       | The shopware domain you want to use   | **shopware.connector.localhost**   |
-  | `GALLY_SERVER_NAME` | The server name you defined for gally | **gally.connector.localhost**      |
+  | Var                 | Description                           | Example value                    |
+  |---------------------|---------------------------------------|----------------------------------|
+  | `SERVER_NAME`       | The shopware domain you want to use   | **shopware.connector.localhost** |
+  | `GALLY_SERVER_NAME` | The server name you defined for gally | **gally.connector.local**        |
 
 - Start shopware
   ```shell
@@ -42,7 +42,7 @@
     - Entry point main navigation : Choose *Luma category tree*
     - Edit domain to `http://shopware.connector.localhost` (or the `SERVER_NAME` you defined), http, not https !
   - Configure gally plugin from **Extensions > My extensions > GallyPlugin > Configure** : enter your local gally instance url and credentials, there is the default value:
-    - Url: `https://gally.connector.localhost/api` (or the `GALLY_SERVER_NAME` you defined)
+    - Url: `https://gally.connector.local/api` (or the `GALLY_SERVER_NAME` you defined)
     - Email: your gally admin user email
     - Password: your gally admin user password
   
