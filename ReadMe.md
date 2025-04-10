@@ -18,6 +18,8 @@
 - Start shopware
   ```shell
   docker compose up -d
+  # For lts version:
+  docker compose -f compose.yml -f compose.lts.yml -f compose.override.yml up -d
   ```
 - Install plugins
   ```shell
