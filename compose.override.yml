@@ -4,6 +4,7 @@ services:
       - ${GALLY_SERVER_NAME:-gally.localhost}:host-gateway
     environment:
       - APP_DEBUG=0
+      - SYMFONY_DEPRECATIONS_HELPER=disabled
       - XDEBUG_ENABLED=1
       - XDEBUG_REMOTE_HOST=172.17.0.1
       - XDEBUG_SERVER_NAME=${SERVER_NAME}
