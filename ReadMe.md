@@ -54,6 +54,12 @@
   docker compose exec shopware bin/console gally:index  
   ```
 
+- If you need to rebuild js/css files, you can run these commands
+  ```shell
+  docker compose exec shopware bin/build-administration.sh # For admin, or watch-administration.sh if you need to build in real time with your change
+  docker compose exec shopware bin/build-storefront.sh     # For front, or watch-storefront.sh if you need to build in real time with your change
+  ```
+
 - Run static analyse tools :
   ```shell
   docker compose exec shopware vendor/bin/php-cs-fixer fix --dry-run --diff custom/plugins/GallyPlugin/
