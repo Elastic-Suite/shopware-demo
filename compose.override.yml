@@ -3,6 +3,7 @@ services:
     extra_hosts:
       - ${GALLY_SERVER_NAME:-gally.localhost}:host-gateway
     environment:
+      - APP_ENV=prod
       - APP_DEBUG=0
       - SYMFONY_DEPRECATIONS_HELPER=disabled
       - XDEBUG_ENABLED=1
