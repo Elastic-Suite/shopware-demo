@@ -8,6 +8,10 @@
   git clone git@github.com:Elastic-Suite/gally-shopware-connector.git plugins/GallyPlugin
   git clone git@github.com:Elastic-Suite/shopware-lumage-sample-data-plugin.git plugins/LumaSampleData
   ```
+- Fix permission
+  ```
+  sudo chown -R www-data:www-data src plugins
+  ```
 - Set env vars:
 
   | Var                 | Description                           | Example value                    |
@@ -25,6 +29,8 @@
   ```shell
   # Update compose minimum stability in order to be able to require not released sdk package.
   docker compose exec shopware composer config minimum-stability dev
+  # Composer install
+  docker compose exec shopware composer install
   # Refresh plugin list from source
   docker compose exec shopware bin/console plugin:refresh 
   # Install magento sample data (it can take several minutes)

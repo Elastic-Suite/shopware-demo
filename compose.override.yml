@@ -3,7 +3,12 @@ services:
     extra_hosts:
       - ${GALLY_SERVER_NAME:-gally.localhost}:host-gateway
     environment:
+      - APP_ENV=prod
       - APP_DEBUG=0
+      - APP_URL=https://${SERVER_NAME}/
+      - TRUSTED_PROXIES=0.0.0.0/0
+      - TRUSTED_HOSTS=^${SERVER_NAME}$
+      - COMPOSER_HOME=$HOME/.config/composer
       - SYMFONY_DEPRECATIONS_HELPER=disabled
       - XDEBUG_ENABLED=1
       - XDEBUG_REMOTE_HOST=172.17.0.1
