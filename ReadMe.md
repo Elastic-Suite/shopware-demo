@@ -18,6 +18,7 @@
   |---------------------|---------------------------------------|----------------------------------|
   | `SERVER_NAME`       | The shopware domain you want to use   | **shopware.connector.localhost** |
   | `GALLY_SERVER_NAME` | The server name you defined for gally | **gally.connector.local**        |
+  | `DOCKER_USER`       | Your user id and group id             | **1000:1000**                   |
 
 - Start shopware
   ```shell
@@ -38,7 +39,7 @@
   # Install Gally plugin
   docker compose exec shopware bin/console plugin:install GallyPlugin -a
   # Clear cache
-  docker compose exec shopware bin/console cache:clear
+  docker compose exec shopware bin/console cache:clear:all
   ```
 - Install static analysis tools:
   ```shell

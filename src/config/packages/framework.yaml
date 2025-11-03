@@ -1,8 +1,0 @@
-framework:
-    trusted_proxies: '0.0.0.0/0'
-    trusted_headers:
-        - 'x-forwarded-for'
-        - 'x-forwarded-proto'
-        - 'x-forwarded-host'
-        - 'x-forwarded-port'
-
