@@ -13,6 +13,7 @@ services:
             - ./plugins:/var/www/html/custom/plugins:rw,cached
             - jwt:/var/www/html/config/jwt:rw,cached
             - var:/var/www/html/var:rw,cached
+            - npm_cache:/var/www/html/.npm:rw,cached
             - db_data:/var/lib/mysql
         labels:
             - traefik.enable=true
@@ -27,4 +28,5 @@ services:
 volumes:
     db_data:
     jwt:
+    npm_cache:
     var:
