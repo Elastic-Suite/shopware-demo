@@ -12,5 +12,5 @@ sudo groupmod -g $TARGET_GID www-data
 sudo mkdir -p /var/www/html/public/media /var/www/html/public/thumbnail
 
 # Fix ownership of existing files
-sudo chown -R dockware:www-data /var/www/html
-sudo chmod g+w -R /var/www/html/var /var/www/html/public/media /var/www/html/public/thumbnail
+sudo chown -R dockware:www-data /var/www/html /var/www/.npm
+sudo chmod g+w -R /var/www/html/var /var/www/html/public/media /var/www/html/public/thumbnail /var/www/.npm
