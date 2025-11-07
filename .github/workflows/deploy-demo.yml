@@ -22,6 +22,7 @@ jobs:
             [ -d shopware ] || git clone https://github.com/Elastic-Suite/shopware-demo.git shopware &&
             cd /home/ubuntu/shopware &&
             [ -d plugins/GallyPlugin ] || git clone https://github.com/Elastic-Suite/gally-shopware-connector.git plugins/GallyPlugin &&
+            [ -d plugins/MagentoLumaSampleData ] || git clone https://github.com/Elastic-Suite/hopware-lumage-sample-data-plugin.git  plugins/MagentoLumaSampleData &&
             docker system prune -af &&
             ([[ $(docker volume ls -q | awk '!/_/' | wc -l) -eq 0 ]] || docker volume rm $(docker volume ls -q | awk '!/_/' | tr '\n' ' ')) &&
             docker compose down &&
