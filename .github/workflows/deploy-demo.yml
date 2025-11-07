@@ -31,4 +31,6 @@ jobs:
             git fetch --all && git reset --hard && git checkout ${{ env.BRANCH }} &&
             cd /home/ubuntu/shopware &&
             docker compose -f compose.yml -f compose.prod.yml up -d --build      
+            docker compose -f compose.yml -f compose.prod.yml exec shopware bin/build-administration.sh
+            docker compose -f compose.yml -f compose.prod.yml exec shopware bin/build-storefront.sh
           "
