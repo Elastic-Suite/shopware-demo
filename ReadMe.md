@@ -12,7 +12,10 @@
   ```
   sudo chown -R www-data:www-data src plugins
   ```
-- Set env vars:
+- Copy `.env.dist` to `.env` and set env vars:
+  ```shell
+  cp .env.dist .env
+  ```
 
   | Var                 | Description                           | Example value                    |
   |---------------------|---------------------------------------|----------------------------------|
@@ -22,16 +25,19 @@
 
 - Start shopware
   ```shell
-  docker compose up -d
+  make up
   # For lts version:
-  docker compose -f compose.yml -f compose.lts.yml -f compose.override.yml up -d
+  make up-lts
   ```
+  (stop with `make down` / `make down-lts`)
 - Install plugins
   ```shell
   # Update compose minimum stability in order to be able to require not released sdk package.
   docker compose exec shopware composer config minimum-stability dev
   # Composer install
   docker compose exec shopware composer install
+  # Run pending database migrations
+  docker compose exec shopware bin/console database:migrate --all
   # Refresh plugin list from source
   docker compose exec shopware bin/console plugin:refresh 
   # Install magento sample data (it can take several minutes)
@@ -45,7 +51,7 @@
   ```shell
   docker compose exec shopware composer require --dev friendsofphp/php-cs-fixer:3.65 phpstan/phpstan
   ```
-- You shopware backoffice should be accessible from https://shopware.connector.localhost/admin (or the `SERVER_NAME` you defined)
+- You shopware backoffice should be accessible from https://shopware.connector.localhost/admin (or the `SERVER_NAME` you defined). Assets are correctly served over https behind the Traefik reverse proxy (trusted proxies are configured so Symfony picks up the right scheme); if you still see a mixed content error, run `docker compose exec shopware bin/console cache:clear`.
   - Login with `admin` / `shopware`
   - Configure you store frontend from **Sales channels > Storefront**
     - Entry point main navigation : Choose *Luma category tree*

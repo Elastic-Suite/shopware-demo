@@ -11,16 +11,18 @@ services:
             - ./boot_start.sh:/var/www/boot_start.sh
             - ./src:/var/www/html:rw,cached
             - ./plugins:/var/www/html/custom/plugins:rw,cached
+            - ./packages:/var/www/html/custom/packages:rw,cached
             - jwt:/var/www/html/config/jwt:rw,cached
             - var:/var/www/html/var:rw,cached
             - npm_cache:/var/www/html/.npm:rw,cached
             - db_data:/var/lib/mysql
         labels:
             - traefik.enable=true
-            # Serve oro over http
+            - traefik.http.services.shopware.loadbalancer.server.port=80
+            # Serve shopware over http
             - traefik.http.routers.shopware-http.rule=Host(`${SERVER_NAME}`)
             - traefik.http.routers.shopware-http.entrypoints=http
-            # Serve oro over https
+            # Serve shopware over https
             - traefik.http.routers.shopware-https.rule=Host(`${SERVER_NAME}`)
             - traefik.http.routers.shopware-https.entrypoints=https
             - traefik.http.routers.shopware-https.tls=true

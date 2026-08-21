@@ -1,4 +1,7 @@
 
 services:
     shopware:
-        image: dockware/dev:6.5.8.16
+        image: dockware/dev:6.6.10.6
+        volumes:
+            - ./src/composer.lts.json:/var/www/html/composer.json
+            - ./src/composer.lts.lock:/var/www/html/composer.lock

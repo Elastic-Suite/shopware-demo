@@ -5,7 +5,7 @@
         "composer-runtime-api": "^2.0",
         "gally/shopware-plugin": "2.2.1",
         "shopware/administration": "*",
-        "shopware/core": "v6.7.2.2",
+        "shopware/core": "v6.7.13.0",
         "shopware/elasticsearch": "*",
         "shopware/storefront": "*",
         "symfony/flex": "~2"
@@ -31,6 +31,13 @@
             "options": {
                 "symlink": true
             }
+        },
+        {
+            "type": "path",
+            "url": "custom/packages/*",
+            "options": {
+                "symlink": true
+            }
         }
     ],
     "autoload": {
@@ -43,7 +50,8 @@
     "config": {
         "allow-plugins": {
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "php-http/discovery": true
         },
         "optimize-autoloader": true,
         "sort-packages": true
@@ -67,5 +75,9 @@
                 "flex://defaults"
             ]
         }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "3.65",
+        "phpstan/phpstan": "^2.2"
     }
 }
