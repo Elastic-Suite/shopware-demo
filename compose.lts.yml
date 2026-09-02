@@ -5,3 +5,23 @@ services:
         volumes:
             - ./src/composer.lts.json:/var/www/html/composer.json
             - ./src/composer.lts.lock:/var/www/html/composer.lock
+            - ./src/config/bundles.lts.php:/var/www/html/config/bundles.php
+            - ./src/config/packages/property_info.lts.yaml:/var/www/html/config/packages/property_info.yaml
+            # ./src (the main stack's bind mount, inherited from compose.yml) brings its own
+            # vendor/ along with it. A named volume on this exact subpath shadows that shared
+            # vendor/ for this container only, so composer install here can't clobber the main
+            # stack's already-installed 6.7 dependencies (or vice versa).
+            - lts_vendor:/var/www/html/vendor
+        labels: !override
+            - traefik.enable=true
+            - traefik.http.routers.shopware-lts-http.rule=Host(`${SHOPWARE_LTS_SERVER_NAME:-shopware-lts.docker.local}`)
+            - traefik.http.routers.shopware-lts-http.entrypoints=http
+            - traefik.http.routers.shopware-lts-http.service=shopware-lts
+            - traefik.http.routers.shopware-lts-https.rule=Host(`${SHOPWARE_LTS_SERVER_NAME:-shopware-lts.docker.local}`)
+            - traefik.http.routers.shopware-lts-https.entrypoints=https
+            - traefik.http.routers.shopware-lts-https.tls=true
+            - traefik.http.routers.shopware-lts-https.service=shopware-lts
+            - traefik.http.services.shopware-lts.loadbalancer.server.port=80
+
+volumes:
+    lts_vendor:
