@@ -3,14 +3,16 @@
 ## Run a local shopware env with gally
 
 - Clone this repository
-- Add Gally and Luma demo catalog plugins 
+- Add Gally and Luma demo catalog plugins, and the Gally PHP SDK
   ```shell
   git clone git@github.com:Elastic-Suite/gally-shopware-connector.git plugins/GallyPlugin
   git clone git@github.com:Elastic-Suite/shopware-lumage-sample-data-plugin.git plugins/LumaSampleData
+  git clone -b 2.3.x git@github.com:Elastic-Suite/gally-php-sdk.git packages/GallySdk
   ```
+  The `packages` directory is mounted on `custom/packages` in the container, so composer uses the local SDK (symlinked in `vendor/gally/gally-php-sdk`).
 - Fix permission
   ```
-  sudo chown -R www-data:www-data src plugins
+  sudo chown -R www-data:www-data src plugins packages
   ```
 - Copy `.env.dist` to `.env` and set env vars:
   ```shell
@@ -78,3 +80,11 @@
   docker compose exec shopware vendor/bin/php-cs-fixer fix --dry-run --diff custom/plugins/GallyPlugin/
   docker compose exec shopware vendor/bin/phpstan --memory-limit=1G analyse -c custom/plugins/GallyPlugin/phpstan.neon
   ```
+
+## Deploy the demo
+
+The `Deploy demo` workflow (`.github/workflows/deploy-demo.yml`) deploys the current branch on the demo EC2 instance.
+It requires the following repository settings:
+
+- Secrets: `AWS_DEPLOY_KEY`, `AWS_HOSTNAME`, `AWS_USER` (SSH access to the instance)
+- Variable: `APP_URL`, the public URL of the demo shop (e.g. `https://shopware.example.com/`), used by Shopware for the Admin API

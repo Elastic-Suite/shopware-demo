@@ -18,6 +18,6 @@ sudo chmod g+w -R /var/www/html/var /var/www/html/public/media /var/www/html/pub
 # Apache/PHP don't inherit the container's environment (sudo strips it before starting php-fpm),
 # write the values Symfony needs to .env.local instead, which it reads straight from disk.
 sudo tee /var/www/html/.env.local > /dev/null <<EOF
-APP_URL=${APP_URL}
-TRUSTED_PROXIES=${TRUSTED_PROXIES}
+${APP_URL:+APP_URL=$APP_URL}
+${TRUSTED_PROXIES:+TRUSTED_PROXIES=$TRUSTED_PROXIES}
 EOF

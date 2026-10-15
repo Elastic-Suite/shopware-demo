@@ -12,6 +12,7 @@ jobs:
       - name: Deploy in EC2
         env:
           BRANCH: ${{ format('origin/{0}', github.ref_name) }}
+          APP_URL: ${{ vars.APP_URL }}
           PRIVATE_KEY: ${{ secrets.AWS_DEPLOY_KEY }}
           HOSTNAME : ${{ secrets.AWS_HOSTNAME }}
           USER_NAME : ${{ secrets.AWS_USER }}
@@ -30,5 +31,6 @@ jobs:
             cd /home/ubuntu/shopware/plugins/GallyPlugin &&
             git fetch --all && git reset --hard && git checkout ${{ env.BRANCH }} &&
             cd /home/ubuntu/shopware &&
+            echo APP_URL=${APP_URL} > .env &&
             docker compose -f compose.yml -f compose.prod.yml up -d --build      
           "
