@@ -5,7 +5,7 @@
         "composer-runtime-api": "^2.0",
         "gally/shopware-plugin": "2.2.1",
         "shopware/administration": "*",
-        "shopware/core": "v6.7.13.0",
+        "shopware/core": "v6.7.15.1",
         "shopware/elasticsearch": "*",
         "shopware/storefront": "*",
         "symfony/flex": "~2"
