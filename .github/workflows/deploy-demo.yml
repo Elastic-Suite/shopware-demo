@@ -32,5 +32,9 @@ jobs:
             git fetch --all && git reset --hard && git checkout ${{ env.BRANCH }} &&
             cd /home/ubuntu/shopware &&
             echo APP_URL=${APP_URL} > .env &&
-            docker compose -f compose.yml -f compose.prod.yml up -d --build      
+            docker compose -f compose.yml -f compose.prod.yml up -d --build &&
+            timeout 600 bash -c 'until docker compose -f compose.yml -f compose.prod.yml exec -T shopware bin/console about > /dev/null 2>&1; do sleep 10; done' &&
+            docker compose -f compose.yml -f compose.prod.yml exec -T shopware bin/build-administration.sh &&
+            docker compose -f compose.yml -f compose.prod.yml exec -T shopware bin/build-storefront.sh &&
+            docker compose -f compose.yml -f compose.prod.yml exec -T shopware bin/console cache:clear:all
           "
